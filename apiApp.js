@@ -250,21 +250,23 @@ $(document).ready(function() {
 
     $('.navbar-insert').append(
         `
-        <nav class="navbar bg-light">
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <a href="./index.html" class="navbar-brand">FOXR DASHBOARD</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <button href="./index.html" class="nav-link border-0 bg-light trending">Trending Coins</button>
-                    </li>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2 search-value" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success search-button">Search</button>
-                </form>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button href="./index.html" class="nav-link border-0 bg-light trending">Trending Coins</button>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 search-value" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success search-button">Search</button>
+                    </form>
+                </div>
             </div>
         </nav>
         `
