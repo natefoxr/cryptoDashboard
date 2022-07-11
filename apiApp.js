@@ -5,13 +5,15 @@ function coinGeckoSearch(userinput){
     });
     $.get(
         `https://api.coingecko.com/api/v3/search?query=${userinput}`, function(data) {
-            $(`.coindata`).html("")
+            $(`.coindata`).html("");
             data['coins'].forEach(element => {
-                const id = element['id']
-                const name = element['name']
-                const mcRank = element['market_cap_rank']
-                const symbol = element['symbol']
-                const thumbnail = element['large']
+                const id = element['id'];
+                const name = element['name'];
+                const mcRank = element['market_cap_rank'];
+                const symbol = element['symbol'];
+                const thumbnail = element['large'];
+                $(`.page-title`).text(`You are searching for ${userinput}...`);
+                $(`.page-title`).append(`<br>Your results are ordered by market cap below:`);
                 $(`.coindata`).append(
                     `     
                     <div class="col-md-6 col-xl-3 justify-content-center">
@@ -27,13 +29,13 @@ function coinGeckoSearch(userinput){
                         </div>
                     </div>
                     `
-                )
-            })
+                );
+            });
             $('.crypto-details').on('click', function() {
-                let cryptoId = $(this).text().slice(0,-8)
+                let cryptoId = $(this).text().slice(0,-8);
                 $.get(
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptoId}&order=market_cap_desc&per_page=100&page=1&sparkline=false`, function(data) {
-                        const response = data[0]
+                        const response = data[0];
                         const detailName = response['name'];
                         const detailSymbol = response['symbol'];
                         const detailPrice = response['current_price'];
@@ -44,7 +46,8 @@ function coinGeckoSearch(userinput){
                         const detailHigh24 = response['high_24h'];
                         const detailSupply = response['total_supply'];
                         const detailAth = response['ath'];
-                        const detailCryptoImage = response['image'] 
+                        const detailCryptoImage = response['image'];
+                        $(`.page-title`).text(`You are viewing the details for ${detailName.toUpperCase()}:`);
                         $(`.coindata`).html(
                             `
                             <div class="container my-4 mx-auto text-center text-light">
@@ -65,13 +68,13 @@ function coinGeckoSearch(userinput){
                                 </div>
                             </div>
                             `
-                        )
+                        );
                     }
-                )
+                );
                             
             }
-        )
-    })
+        );
+    });
 }
 
 function coinGeckoTrending() {
@@ -82,14 +85,14 @@ function coinGeckoTrending() {
     $.get(
         `https://api.coingecko.com/api/v3/search/trending`, function(data) {
             $(`.coindata`).html("")
-            console.log(data)
+            $(`.page-title`).text(`You are viewing the top 7 trending coins in 24HRs...`);
             data['coins'].forEach(element => {
-                const item = element['item']
-                const id = item['id']
-                const name = item['name']
-                const mcRank = item['market_cap_rank']
-                const symbol = item['symbol']
-                const thumbnail = item['large']
+                const item = element['item'];
+                const id = item['id'];
+                const name = item['name'];
+                const mcRank = item['market_cap_rank'];
+                const symbol = item['symbol'];
+                const thumbnail = item['large'];
                 $(`.coindata`).append(
                     `     
                     <div class="col-md-6 col-xl-3 justify-content-center">
@@ -105,15 +108,14 @@ function coinGeckoTrending() {
                         </div>
                     </div>
                     `
-                )
-            })
+                );
+            });
             $('.crypto-details').on('click', function() {
-                let cryptoId = $(this).text().slice(0,-8)
-                console.log(cryptoId)
+                let cryptoId = $(this).text().slice(0,-8);
                 $.get(
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptoId}&order=market_cap_desc&per_page=100&page=1&sparkline=false`, function(data) {
                         console.log(data)
-                        const response = data[0]
+                        const response = data[0];
                         const trendingName = response['name'];
                         const trendingSymbol = response['symbol'];
                         const trendingPrice = response['current_price'];
@@ -124,7 +126,8 @@ function coinGeckoTrending() {
                         const trendingHigh24 = response['high_24h'];
                         const trendingSupply = response['total_supply'];
                         const trendingAth = response['ath'];
-                        const trendingCryptoImage = response['image'] 
+                        const trendingCryptoImage = response['image'];
+                        $(`.page-title`).text(`You are viewing the details for ${trendingName.toUpperCase()}:`);
                         $(`.coindata`).html(
                             `
                             <div class="container my-4 mx-auto text-center text-light">
@@ -145,13 +148,12 @@ function coinGeckoTrending() {
                                 </div>
                             </div>
                             `
-                        )
+                        );
                     }
-                )
-                            
+                );               
             }
-        )
-    })
+        );
+    });
 }
 
 function coinGeckoData(coin) {
@@ -162,20 +164,20 @@ function coinGeckoData(coin) {
     $.get(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coin}&order=market_cap_desc&per_page=100&page=1&sparkline=false`, function(data) {
             if(coin == 'ethereum') {
-                localcoin = 'eth'
+                localcoin = 'eth';
             } else if(coin == 'bitcoin') {
-                localcoin = 'btc'
+                localcoin = 'btc';
             } else {
-                localcoin = coin
+                localcoin = coin;
             }
             data.forEach(data => {
-                const id = data['id']
+                const id = data['id'];
                 const name = data['name'];
                 const symbol = data['symbol'];
                 const price = data['current_price'];
                 const mc = data['market_cap'];
                 const change24 = data['price_change_percentage_24h'];
-                const cryptoImage = data['image']
+                const cryptoImage = data['image'];
                 $(`.coindata`).append(
                     `     
                     <div class="col-md-6 col-xl-3 justify-content-center">
@@ -193,18 +195,18 @@ function coinGeckoData(coin) {
                         </div>
                     </div>
                     `
-                )
+                );
                 if(change24 < 0) {
-                    $(`.percentChange`).html(`<strong class="text-danger">${change24}%</strong>`)
+                    $(`.percentChange`).html(`<strong class="text-danger">${change24}%</strong>`);
                 } else {
-                    $(`.percentChange`).html(`<strong class="text-success">${change24}%</strong>`)
+                    $(`.percentChange`).html(`<strong class="text-success">${change24}%</strong>`);
                 }
             });
             $('.crypto-details').on('click', function() {
-                let cryptoId = $(this).text().slice(0,-8)
+                let cryptoId = $(this).text().slice(0,-8);
                 $.get(
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptoId}&order=market_cap_desc&per_page=100&page=1&sparkline=false`, function(data) {
-                        const response = data[0]
+                        const response = data[0];
                         const detailName = response['name'];
                         const detailSymbol = response['symbol'];
                         const detailPrice = response['current_price'];
@@ -215,7 +217,8 @@ function coinGeckoData(coin) {
                         const detailHigh24 = response['high_24h'];
                         const detailSupply = response['total_supply'];
                         const detailAth = response['ath'];
-                        const detailCryptoImage = response['image'] 
+                        const detailCryptoImage = response['image'];
+                        $(`.page-title`).text(`You are viewing the details for ${detailName}:`);
                         $(`.coindata`).html(
                             `
                             <div class="container my-4 mx-auto text-center text-light">
@@ -236,17 +239,17 @@ function coinGeckoData(coin) {
                                 </div>
                             </div>
                             `
-                        )
+                        );
                     }
-                )
+                );
                         
-            })
+            });
         }
-    )
+    );
 }
 
 $(document).ready(function() {
-    coinGeckoData('ethereum,link,bitcoin,solana,optimism,matic-network,maker,apecoin,ethereum-name-service')
+    coinGeckoData('ethereum,link,bitcoin,solana,optimism,matic-network,maker,apecoin,ethereum-name-service');
 
     $('.navbar-insert').append(
         `
@@ -270,19 +273,15 @@ $(document).ready(function() {
             </div>
         </nav>
         `
-    )
+    );
 
     $('.search-button').on('click', function(e) {
-        e.preventDefault()
-        coinGeckoSearch($('.search-value').val())
-    })
+        e.preventDefault();
+        coinGeckoSearch($('.search-value').val());
+    });
 
     $('.trending').on('click', function(e) {
-        e.preventDefault()
-        coinGeckoTrending()
-    })
-
-
-    // trending section
-
-})
+        e.preventDefault();
+        coinGeckoTrending();
+    });
+});
